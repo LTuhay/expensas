@@ -1,0 +1,41 @@
+package Model.ExpensaCriterio;
+
+import java.time.Instant;
+import java.util.*;
+
+import Model.UnidadFuncional.UnidadFuncional;
+
+/**
+ * 
+ */
+public class PagoCompletoFondosReservas extends ExpensaCriterio {
+
+    /**
+     * Default constructor
+     */
+    public PagoCompletoFondosReservas() {
+    }
+
+    /**
+     * @param unidadesFuncionales 
+     * @param expensa 
+     * @return
+     */
+    public void divisionDeExpensas(List<UnidadFuncional> unidadesFuncionales, double montoTotal) {
+        System.out.println("Pago Completo Fondos de Reservas. Monto total: " + montoTotal);
+        System.out.println("------------------------------------------------------------------");
+    	
+    	double totalFactura;
+    		
+    	for (UnidadFuncional uf : unidadesFuncionales) {
+    		totalFactura = montoTotal * uf.getPorcentaje() + uf.calcularDeuda();
+    		System.out.println("Deuda UF " + uf.getNro() + ": " + uf.calcularDeuda());
+    		System.out.println("Monto actual UF " + uf.getNro() + ": " + montoTotal * uf.getPorcentaje());
+    		System.out.println("Total UF " + uf.getNro() + ": " + totalFactura);
+    		System.out.println();
+    		
+    		uf.agregarFactura(Date.from(Instant.now()), totalFactura);
+        }
+    }
+
+}
